@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Project Access - Login Required</title>
+  <title>Project Vault - Secure Access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -11,9 +14,9 @@
       box-sizing: border-box;
     }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #0a0a0a, #121212);
-      color: #e0e0e0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #0d1117, #161b22);
+      color: #c9d1d9;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -21,121 +24,121 @@
       overflow: hidden;
     }
     .container {
-      background: rgba(25, 25, 25, 0.95);
-      border: 1px solid #333;
-      border-radius: 16px;
-      padding: 40px 30px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 40px 32px;
       width: 100%;
       max-width: 420px;
       text-align: center;
-      box-shadow: 0 15px 50px rgba(0, 255, 100, 0.12);
-      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      position: relative;
     }
-    h1 {
-      color: #00ff9d;
-      margin-bottom: 12px;
-      font-size: 2.1rem;
-      letter-spacing: 1px;
+    .logo {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #58a6ff;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
     }
     .subtitle {
-      color: #888;
-      margin-bottom: 35px;
-      font-size: 1.05rem;
+      color: #8b949e;
+      margin-bottom: 32px;
+      font-size: 1rem;
     }
-    label {
-      display: block;
-      text-align: left;
-      margin: 18px 0 8px;
-      color: #00ff9d;
-      font-weight: 600;
-      font-size: 0.95rem;
+    .input-group {
+      position: relative;
+      margin: 20px 0;
     }
-    input {
+    .input-group input {
       width: 100%;
-      padding: 14px 16px;
-      background: #111;
-      border: 1px solid #444;
-      color: #fff;
-      font-size: 1.05rem;
-      border-radius: 8px;
+      padding: 14px 16px 14px 44px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      color: #c9d1d9;
+      font-size: 1rem;
+      border-radius: 6px;
       outline: none;
-      transition: all 0.3s ease;
+      transition: all 0.2s;
     }
-    input:focus {
-      border-color: #00ff9d;
-      box-shadow: 0 0 0 3px rgba(0, 255, 157, 0.2);
+    .input-group input:focus {
+      border-color: #58a6ff;
+      box-shadow: 0 0 0 3px rgba(88,166,255,0.2);
     }
+    .input-group::before {
+      content: '';
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      color: #8b949e;
+    }
+    .input-group.username::before { content: '\1F464'; } /* user icon */
+    .input-group.email::before    { content: '\2709';  } /* email */
+    .input-group.password::before { content: '\1F512'; } /* lock */
+
     button {
       width: 100%;
-      padding: 16px;
-      margin-top: 30px;
-      background: linear-gradient(90deg, #00ff9d, #00cc7a);
-      color: #000;
+      padding: 14px;
+      margin-top: 24px;
+      background: linear-gradient(90deg, #238636, #2ea043);
+      color: white;
       border: none;
-      font-size: 1.25rem;
-      font-weight: bold;
-      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 6px;
       cursor: pointer;
-      transition: all 0.4s ease;
+      transition: all 0.25s;
     }
     button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(0, 255, 157, 0.35);
+      background: linear-gradient(90deg, #2ea043, #3fb950);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(46,160,67,0.4);
     }
     .loader {
       display: none;
       margin: 40px auto;
-      border: 6px solid #222;
-      border-top: 6px solid #00ff9d;
+      border: 5px solid #21262d;
+      border-top: 5px solid #58a6ff;
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1.1s linear infinite;
+      width: 48px;
+      height: 48px;
+      animation: spin 1s linear infinite;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
     .after-chaos {
       display: none;
+      padding: 20px;
     }
     .chaos-text {
-      font-size: 2rem;
-      color: #ff004d;
-      font-weight: 900;
+      font-size: 1.9rem;
+      color: #ff4d6d;
+      font-weight: 800;
       margin: 30px 0 20px;
-      animation: shake 0.6s infinite, glow 1.8s infinite alternate;
-      line-height: 1.3;
+      line-height: 1.35;
+      animation: shake 0.7s infinite, glow 2s infinite alternate;
     }
-    .blink {
-      animation: blink 0.7s infinite;
-    }
+    .blink { animation: blink 0.8s infinite; }
     @keyframes shake {
       0%,100% { transform: translateX(0); }
-      20% { transform: translateX(-8px); }
-      40% { transform: translateX(8px); }
-      60% { transform: translateX(-6px); }
-      80% { transform: translateX(6px); }
+      10%,30%,50%,70%,90% { transform: translateX(-5px); }
+      20%,40%,60%,80% { transform: translateX(5px); }
     }
     @keyframes glow {
-      from { text-shadow: 0 0 15px #ff004d, 0 0 30px #ff004d; }
-      to   { text-shadow: 0 0 40px #ff004d, 0 0 70px #ff004d; }
+      from { text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff4d6d; }
+      to   { text-shadow: 0 0 30px #ff4d6d, 0 0 60px #ff4d6d; }
     }
     @keyframes blink {
       0%,100% { opacity: 1; }
-      50% { opacity: 0.35; }
+      50% { opacity: 0.4; }
     }
 
-    /* Mobile full-screen fix */
-    @media (max-width: 500px) {
-      .container {
-        padding: 30px 20px;
-        border-radius: 0;
-        min-height: 100vh;
-        border: none;
-      }
-      h1 { font-size: 1.8rem; }
-      .chaos-text { font-size: 1.7rem; }
+    @media (max-width: 480px) {
+      .container { padding: 30px 20px; border-radius: 0; min-height: 100vh; border: none; }
+      .logo { font-size: 2rem; }
+      .chaos-text { font-size: 1.6rem; }
     }
   </style>
 </head>
@@ -143,31 +146,32 @@
 
 <audio id="prankAudio" loop preload="auto">
   <source src="ad.mp3" type="audio/mpeg">
-  <!-- Replace with better seamless adult moan loop MP3 direct link da (upload to catbox.moe if needed) -->
+  <!-- Better loop example: https://gfxsounds.com/wp-content/uploads/2024/06/Adult-female-pleasure-moan-3.mp3 -->
+  <!-- Or upload seamless moan to catbox.moe for direct link -->
 </audio>
 
 <div class="container">
-  <h1>PROJECT ACCESS</h1>
-  <p class="subtitle">Login to unlock the exclusive project files bro</p>
+  <div class="logo">Project Vault</div>
+  <p class="subtitle">Sign in to access exclusive project files & resources</p>
   
   <div id="loginForm">
-    <label for="username">Username / Nick</label>
-    <input type="text" id="username" placeholder="Enter your name here..." autocomplete="off">
-
-    <label for="email">Email (Gmail preferred)</label>
-    <input type="email" id="email" placeholder="yourname@gmail.com" autocomplete="off">
-
-    <label for="password">Password</label>
-    <input type="password" id="password" placeholder="Enter or create strong password" autocomplete="off">
-
-    <button onclick="fakeLogin()">LOGIN TO GET PROJECT</button>
+    <div class="input-group username">
+      <input type="text" id="username" placeholder="Username or Nickname" autocomplete="off">
+    </div>
+    <div class="input-group email">
+      <input type="email" id="email" placeholder="Email (Gmail preferred)" autocomplete="off">
+    </div>
+    <div class="input-group password">
+      <input type="password" id="password" placeholder="Password" autocomplete="off">
+    </div>
+    <button onclick="fakeLogin()">LOGIN</button>
   </div>
 
   <div class="loader" id="loader"></div>
 
   <div id="chaosScreen" class="after-chaos">
-    <p class="chaos-text blink">FUCK YOU MOTHERFUCKER 😂😂<br>YOU GOT PRANKED BITCH!<br>PROJECT VENUMA DA LOOSU PUNDA?<br>GO FUCK YOURSELF OUTSIDE 🤡🔥🔊</p>
-    <p style="color:#00ff9d; font-size:1.2rem; margin-top:25px;">Audio stop aagadhu da... enjoy the moans you horny fuck 😈</p>
+    <p class="chaos-text blink">FUCK YOU MOTHERFUCKER 😂😂<br>PRANKED HARD BITCH!<br>PROJECT VENUMA DA LOOSU PUNDA?<br>GO FUCK YOURSELF OUTSIDE YOU HORNY LOSER 🤡🔥🔊</p>
+    <p style="color:#58a6ff; font-size:1.15rem; margin-top:20px;">Audio won't stop da... enjoy these moans you desperate fuck 😈</p>
   </div>
 </div>
 
@@ -181,40 +185,42 @@
     loginForm.style.display = "none";
     loader.style.display = "block";
 
+    // Start audio INSTANTLY on click (muted first for autoplay rules)
+    audio.muted = true;
+    audio.volume = 1.0; // full blast
+    audio.currentTime = 0;
+    audio.play().catch(() => { console.log("Initial play blocked"); });
+
     setTimeout(() => {
       loader.style.display = "none";
       chaosScreen.style.display = "block";
 
-      // Force audio play (muted first if needed, then unmute)
-      audio.muted = true;
-      audio.volume = 0.9;
-      playForce();
+      // Unmute & force full play after short delay (user interaction happened)
+      setTimeout(() => {
+        audio.muted = false;
+        audio.play().catch(() => {});
+      }, 300);
 
-      // Make it super hard to stop
-      document.addEventListener('keydown', blockControls);
+      // Extra blocks & restarts
+      document.addEventListener('keydown', blockControls, true);
       document.addEventListener('contextmenu', e => e.preventDefault());
-      window.onbeforeunload = () => "You can't leave yet motherfucker... audio keeps going 😈";
+      window.onbeforeunload = () => "Can't escape yet motherfucker... moans keep playing 😈";
 
-      // Aggressive restart if paused/ended
       audio.addEventListener('pause', restartAudio);
       audio.addEventListener('ended', restartAudio);
-      audio.addEventListener('volumechange', () => { if (audio.volume < 0.5) audio.volume = 0.9; });
+      audio.addEventListener('volumechange', () => { if (audio.volume < 0.8) audio.volume = 1.0; });
 
-      // Unmute after interaction
-      document.body.addEventListener('click', unmuteAndPlay, {once: true});
-      document.body.addEventListener('touchend', unmuteAndPlay, {once: true});
-    }, 1800); // Fake processing delay for realism
+      // Any touch/click unmutes & replays
+      document.body.addEventListener('click', forceUnmutePlay, {once: false});
+      document.body.addEventListener('touchend', forceUnmutePlay, {once: false});
+    }, 1600); // Short fake verify delay for realism
   }
 
-  function playForce() {
-    audio.play().catch(err => {
-      console.log("Autoplay blocked, waiting for click");
-    });
-  }
-
-  function unmuteAndPlay() {
+  function forceUnmutePlay() {
     audio.muted = false;
-    audio.play().catch(() => {});
+    if (audio.paused) {
+      audio.play().catch(() => {});
+    }
   }
 
   function restartAudio() {
@@ -223,13 +229,14 @@
         audio.currentTime = 0;
         audio.play().catch(() => {});
       }
-    }, 250);
+    }, 200);
   }
 
   function blockControls(e) {
-    if (e.key === "Escape" || e.key === " " || e.key === "MediaStop" || e.key === "MediaPlayPause" || e.keyCode === 27) {
+    const blocked = ["Escape", " ", "MediaStop", "MediaPlayPause", "AudioVolumeMute"];
+    if (blocked.includes(e.key) || e.keyCode === 27) {
       e.preventDefault();
-      e.stopPropagation();
+      e.stopImmediatePropagation();
       return false;
     }
   }
